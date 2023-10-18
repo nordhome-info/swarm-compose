@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  server:
+    image: docker.io/bitnami/redis:7.2
+    container_name: redis
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.type == database
+    environment:
+      - REDIS_PASSWORD=$REDIS_PASSWORD
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - 6379:6379
+    networks:
+      database:
+        ipv4_address: 172.20.0.4
+    volumes:
+      - redis_data:/bitnami/redis/data
+
+networks:
+  database:
+    external: true
+volumes:
+  redis_data:
+    external: true
