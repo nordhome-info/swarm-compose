@@ -9,8 +9,8 @@ services:
       mode: replicated
       replicas: 1
       placement:
-      constraints:
-        - node.labels.type == database
+        constraints:
+          - node.labels.type == database
     environment:
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - MYSQL_ROOT_USER=$MYSQL_ROOT_USER
