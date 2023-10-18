@@ -9,8 +9,8 @@ services:
       mode: replicated
       replicas: 1
       placement:
-      constraints:
-        - node.labels.type == database
+        constraints:
+          - node.labels.type == database
     environment:
       - MONGODB_ROOT_PASSWORD=$MONGODB_ROOT_PASSWORD
       - MONGODB_ROOT_USER=$MONGODB_ROOT_USER
