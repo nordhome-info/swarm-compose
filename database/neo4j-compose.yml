@@ -1,0 +1,31 @@
+version: '3'
+services:
+  server:
+    image: docker.io/bitnami/neo4j:5
+    container_name: neo4j
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.type == database
+    environment:
+      - NEO4J_PASSWORD=$NEO4J_PASSWORD
+    ports:
+      - 7474:7474
+      - 7473:7473
+      - 7687:7687
+    networks:
+      database:
+        ipv4_address: 172.20.0.3
+    volumes:
+      - neo4j_data:/bitnami
+    
+networks:
+  database:
+    external: true
+    
+volumes:
+  neo4j_data:
+    external: true
